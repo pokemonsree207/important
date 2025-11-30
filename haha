@@ -1,0 +1,355 @@
+*********************q2*********
+git remote set-url origin <url>
+# --- GIT SETUP ---
+git init
+git clone <repo_url>
+git config --global user.name "<your_name>"
+git config --global user.email "<your_email>"
+
+# --- CHECK STATUS ---
+git status
+
+# --- ADD FILES ---
+git add <file>
+git add .                     # stage all changes
+
+# --- COMMIT ---
+git commit -m "message"
+git commit -am "msg"          # add + commit tracked files
+
+# --- BRANCH COMMANDS ---
+git branch                    # list branches
+git branch <name>             # create branch
+git branch -d <name>          # delete branch
+git checkout <branch>         # switch branch
+git switch <branch>           # newer switch command
+git checkout -b <name>        # create + switch
+
+# --- REMOTE COMMANDS ---
+git remote -v
+git remote add origin <url>
+git remote remove origin
+git remote rename origin newname
+
+# --- FETCH, PULL, PUSH ---
+git fetch                     # fetch latest without merging
+git pull                      # fetch + merge
+git pull origin <branch>      # pull specific branch
+
+git push                      # push current branch
+git push origin <branch>      # push specific branch
+git push -u origin <branch>   # push + set upstream
+git push origin --delete <branch>
+
+# --- MERGE & REBASE ---
+git merge <branch>
+git rebase <branch>
+
+# --- STASH COMMANDS ---
+git stash                     # save local changes
+git stash -u                  # include untracked files
+git stash list
+git stash pop                 # apply + remove stash
+git stash apply <stash_id>    # apply without removing
+git stash drop <stash_id>     # delete stash
+git stash clear               # remove all
+
+# --- REMOVE / DELETE FILES ---
+git rm <file>
+git rm -r <folder>
+git rm --cached <file>        # keep file but remove from Git
+
+# --- LOGS ---
+git log
+git log --oneline
+git log --graph --decorate --oneline --all
+
+# --- RESET / REVERT ---
+git reset <file>              # unstage file
+git reset --hard              # reset all changes
+git reset --hard HEAD~1       # undo last commit completely
+git revert <commit>           # safe undo (new commit)
+
+# --- CLEAN WORKSPACE ---
+git clean -n                  # preview delete untracked
+git clean -f                  # delete untracked
+
+# --- TAGS ---
+git tag                       # list tags
+git tag <tagname>
+git push origin <tagname>
+git push --tags
+
+# --- FILTER / HISTORY REWRITE ---
+git filter-branch
+git filter-repo               # (newer, better for rewriting history)
+
+# --- SHOW FILES / DIFF ---
+git show <commit>
+git diff
+git diff --cached             # staged diff
+
+# --- CLONE SUBMODULES ---
+git submodule add <url>
+git submodule update --init --recursive
+
+# --- CHERRY PICK ---
+git cherry-pick <commit>
+
+# --- ARCHIVE ---
+git archive --format=zip -o repo.zip HEAD
+
+
+
+********************q3***********************
+
+# --- CLONE REPO ---
+git clone https://github.com/se-lab/myproject.git
+cd myproject
+
+# --- CHECK STATUS ---
+git status
+
+# --- CREATE & SWITCH BRANCH ---
+git branch
+git branch dev
+git checkout dev
+# OR: git checkout -b dev
+
+# --- FILE MANAGEMENT ---
+echo "Hello" > file.txt          # create file
+git add file.txt                 # add specific file
+git add .                        # add all files
+
+# --- COMMIT ---
+git commit -m "Initial commit"
+
+# --- PUSH BRANCH TO GITHUB ---
+git push -u origin dev
+
+# --- UPDATE LOCAL REPO ---
+git pull origin main             # pull latest main branch changes
+git fetch                        # get branches & updates without merge
+
+# --- MERGE BRANCHES ---
+git checkout main
+git merge dev
+
+# --- DELETE BRANCH ---
+git branch -d dev
+git push origin --delete dev
+
+# --- STASH ---
+git stash
+git stash list
+git stash pop
+
+# --- REMOVE FILES ---
+git rm file.txt
+git rm -r folder/
+git rm --cached secret.txt       # keep file locally, remove from Git
+
+# --- LOGS & DIFF ---
+git log --oneline
+git diff
+
+# --- RESET & UNDO ---
+git reset file.txt               # unstage changes
+git reset --hard                 # undo all local changes
+git reset --hard HEAD~1          # undo last commit fully
+
+# --- TAGS ---
+git tag v1
+git push origin v1
+
+# --- SHOW REMOTES ---
+git remote -v
+
+# --- FORK WORKFLOW ---
+git clone https://github.com/<your-username>/myproject
+cd myproject
+
+# Add original repo as upstream
+git remote add upstream https://github.com/se-lab/myproject.git
+git remote -v
+
+# Sync fork
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
+
+# Make changes and push in fork
+echo "Fork update" > fork.txt
+git add .
+git commit -m "fork update"
+git push origin main
+
+# --- CREATE PR FROM CLI ---
+git checkout dev
+git push origin dev
+# Then in GitHub UI: create pull request
+
+
+****************q4********************maven eclipse
+
+for maven web and java 
+create repo first then clone from eclipse-warehouse get webproject  copypaste into web then cd 
+git clone https://github.com/harinimanga31/web
+cd web
+git add .
+git commit -m "web"
+git push
+
+******************q5******************
+docker cli commands
+docker pull nginx
+docker run -d -p 9090:80 --name myap nginx
+
+
+********************q6*******************************docker
+###for docker using commit
+mkdir mydocker
+cd mydocker
+docker run -it --name mycontainer ubuntu bash
+echo "Hello Docker Commit" > /root/msg.txt
+exit
+docker commit mycontainer myimage:v1
+docker images
+docker run -it myimage:v1 bash
+docker tag myimage:v1 mangaharini/myimage:v1
+docker push mangaharini/myimage:v1
+
+####for dockercompose.yml 
+direct 
+docker run -d -p 8010:80 nginx
+docker run -d -p 8030:8080 tomee
+# 1. Create new folder
+mkdir myapp
+cd myapp
+
+# 2. Create index.html
+echo "<h1>Server Running</h1>" > index.html
+
+# 3. Create Dockerfile
+echo "FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html" > Dockerfile
+
+# 4. Create docker-compose.yml
+echo "services:
+  server1:
+    build: .
+    ports:
+      - '8080:80'
+
+  server2:
+    build: .
+    ports:
+      - '9090:80'
+" > docker-compose.yml
+
+# 5. Build and run BOTH servers
+docker-compose up -d
+
+# 6. Check running containers
+docker ps
+
+# 7. Open in browser
+# http://localhost:8080
+# http://localhost:9090
+
+
+######using dockerfile
+mkdir C:\Users\Dell\myapp5
+cd C:\Users\Dell\myapp5
+echo hello from docker harini > index.html
+echo FROM nginx:latest > Dockerfile
+echo COPY ./index.html /usr/share/nginx/html >> Dockerfile
+echo EXPOSE 80 >> Dockerfile
+docker build -t mynginx:1.0 .
+docker run -d -p 9090:80 --name mynginxcontainer mynginx:1.0
+
+*******************q7***************************
+maven project with java and web
+
+*******************q8**************************
+jenkins free style
+
+******************q9**********************
+jenkins pipeline style
+
+**********************q10************************
+
+minikube start --driver=hyperv
+minikube start --driver=docker
+minikube start --driver=virtualbox
+minikube status
+minikube kubectl -- get pods -A
+minikube dashboard
+minikube version
+minikube logs
+minikube update-check
+minikube update
+kubectl create deployment mynginx --image=nginx
+kubectl set image deployment/mynginx nginx=nginx:latest
+kubectl get deployments
+kubectl get pods
+kubectl describe pods
+kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
+kubectl get service mynginx
+kubectl scale deployment mynginx --replicas=4
+kubectl port-forward svc/mynginx 8081:80
+minikube tunnel
+minikube service mynginx --url
+kubectl delete deployment mynginx
+kubectl delete service mynginx
+minikube stop
+minikube delete
+docker pull jasonrivers/nagios:latest
+docker run --name nagiosdemo -p 8888:80 jasonrivers/nagios:latest
+docker stop nagiosdemo
+docker rm nagiosdemo
+docker images
+docker rmi jasonrivers/nagios:latest
+
+
+*******************************q11*****************
+jenkins with webhooks
+login in ngrok
+ngrok config add-authtoken <token>
+ngrok http 8080 
+jenkins freestyle for webhook
+manage plugins-> configure system
+email notification section->smtp=smpt.gmail.com->username=mail->
+password generated in 2 step verification->use ssl ->465->reply-to address =mail
+select triggers 
+then create new job
+
+
+
+
+********************q12**********************
+
+*********ssh client  for this
+run key first
+sudo apt update
+sudo apt-get install docker.io
+sudo apt install git
+sudo apt install nano
+
+git clone git@github:harinimanga31/exampleaws.git
+ls->example
+cd exampleaws
+ls->index.html
+nano dockerfile
+
+from nginx:alpine
+COPY . /usr/share/nginx/html
+
+FROM tomcat:9-jdk11
+COPY **/*.war /usr/local/tomcat/webapps
+
+sudo docker build -t mywebapp
+sudo docker run -d -p 80:80 mywebapp
+sudo docker ps
+
